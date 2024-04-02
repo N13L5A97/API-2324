@@ -17,9 +17,11 @@ app
   .listen(3000);
 
 app.get('/', async (req, res) => {
+  return res.send(renderTemplate('views/index.liquid'));
 
-  const movieData = await getMovies();
-  return res.send(renderTemplate('views/index.liquid', { title: 'Movies', movieData }));
+
+  // const movieData = await getMovies();
+  // return res.send(renderTemplate('views/index.liquid', { title: 'Movies', movieData }));
   // return res.send(renderTemplate('views/index.liquid', { title: 'Home' }));
 });
 
