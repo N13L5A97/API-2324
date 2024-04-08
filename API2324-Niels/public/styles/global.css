@@ -1,4 +1,5 @@
 @import 'navbar.css';
+@import 'sections.css';
 
 :root{
     --background-color: #202020;
@@ -34,8 +35,9 @@ ul{
 main{
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+}
+
+footer{
     padding: 2rem;
 }
 

@@ -6,14 +6,14 @@
   <body>
     <header><%- include('../partials/header'); %></header>
     <main>
-      <ul>
         <% movies.forEach(function(movie) { %>
-          <li>
+          <section>
             <h2> <%= movie.title %> </h2>
-            <img class="poster" src="https://image.tmdb.org/t/p/original/<%= movie.poster_path %>" alt=""> 
-          </li>
+            <!-- <img class="poster" src="https://image.tmdb.org/t/p/original/<%= movie.poster_path %>" alt=""> -->
+            <!-- background image -->
+            <!-- <div style="background-image: url('https://image.tmdb.org/t/p/original/<%= movie.poster_path %>')"></div> -->
+          </section>
         <% }); %>
-      </ul>
     </main>
     <footer><%- include('../partials/footer'); %></footer>
   </body>
