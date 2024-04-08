@@ -1,46 +1,55 @@
-import { App } from '@tinyhttp/app'
-import { logger } from '@tinyhttp/logger'
-import { Liquid } from 'liquidjs';
-import 'dotenv/config';
+require("dotenv").config();
+const express = require("express");
+const router = express.Router();
+const app = express();
 
-const engine = new Liquid({
-  extname: '.liquid'
+const PORT = process.env.PORT;
+const API_URL = process.env.API_URL;
+const API_TOKEN = process.env.API_TOKEN;
+
+const url = `${API_URL}/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_companies=7505'`;
+
+app.set("view engine", "ejs");
+app.use(express.static("public"));
+app.use(router);
+
+// home
+app.get("/", function (req, res) {
+  try{
+    const movies = getMovies();
+
+    res.render("pages/index", { movies });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
+  }
 });
-const app = new App()
 
-app
-  .use(logger())
-  .listen(3000, () => console.log('Started on http://localhost:3000'))
-
-
-app.get('/', async (req, res) => {
-    return res.send(renderTemplate('views/index.liquid'));
+app.get("/about", function (req, res, next) {
+  res.render("pages/about");
 });
 
+app.listen(PORT, function (err) {
+  if (err) console.log(err);
+  console.log("Server listening on PORT", PORT);
+});
 
-app
-  .get('/', async (req, res) => {
-    try{
-      res.send('Hello World!')
-    } catch (error) {
-      res.send(error)
-    }
-  })
+const options = {
+  method: 'GET',
+  headers: {
+    accept: 'application/json',
+    Authorization: `Bearer ${API_TOKEN}`
+  }
+};
 
-  .get('/:movie',async (req, res) => {
-    try{
-      res.send(req.params)
-    } catch (error) {
-      res.send(error)
-    }
-  })
-
-
-const renderTemplate = (template, data) => {
-  const templateData = {
-    NODE_ENV: process.env.NODE_ENV || 'production',
-    ...data
-  };
-  
-  return engine.renderFileSync(template, templateData);
+const getMovies = async () => {
+  try {
+    const response = await fetch(url, options);
+    const json = await response.json();
+    console.log(json.results);
+    return json.results;
+  } catch (error) {
+    console.error(error);
+  }
 };
