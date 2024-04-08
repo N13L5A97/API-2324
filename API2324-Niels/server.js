@@ -46,9 +46,28 @@ const getMovies = async () => {
     const response = await fetch(url, options);
     const json = await response.json();
 
-    // console.log(json.results);
+    console.log(json.results);
     return json.results;
   } catch (error) {
     console.error(error);
   }
 };
+
+
+getCast = async () => {
+  try {
+    const movies = await getMovies();
+    movies.forEach(async (movie) => {
+      const response = await fetch(`https://api.themoviedb.org/3/movie/${movie.id}/credits?language=en-US` , options);
+      const json = await response.json();
+      // only log name of "known_for_department": "Acting"
+      const cast = json.cast.filter((person) => person.known_for_department === "Acting");
+      console.log(cast);
+
+    });
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+getCast();
