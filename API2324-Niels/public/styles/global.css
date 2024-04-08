@@ -1,3 +1,5 @@
+@import 'navbar.css';
+
 *{
     margin: 0;
     padding: 0;
@@ -6,5 +8,18 @@
 
 body{
     font-family: 'Roboto', sans-serif;
-    background: #8888ff;
+    background: #141447;
+    color: white;
+}
+
+main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.poster{
+    max-width: 10vw;
 }

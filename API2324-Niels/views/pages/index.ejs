@@ -6,7 +6,14 @@
   <body>
     <header><%- include('../partials/header'); %></header>
     <main>
-
+      <ul>
+        <% movies.forEach(function(movie) { %>
+          <li>
+            <h2> <%= movie.title %> </h2>
+            <img class="poster" src="https://image.tmdb.org/t/p/original/<%= movie.poster_path %>" alt=""> 
+          </li>
+        <% }); %>
+      </ul>
     </main>
     <footer><%- include('../partials/footer'); %></footer>
   </body>

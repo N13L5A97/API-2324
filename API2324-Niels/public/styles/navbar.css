@@ -1,0 +1,28 @@
+nav{
+    background-color: #333;
+    color: white;
+    padding: .5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+
+    a{
+        color: white;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+
+        :visited{
+            color: white;
+        }
+    }
+
+    ul{
+        display: flex;
+        list-style: none;
+        font-size: 1.2rem;
+        font-weight: bold;
+        gap: 1rem;
+    }
+}
