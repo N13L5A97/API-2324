@@ -20,7 +20,7 @@ app.listen(PORT, function (err) {
 // home
 app.get("/", async (req, res) => {
   try{
-    const movies = await getMovies();
+    const movies = await getSpiderManMovies();
     console.log(movies);
 
     res.render('pages/index', {
@@ -41,11 +41,23 @@ const options = {
   }
 };
 
-const getMovies = async () => {
-  try {
-    const response = await fetch(url, options);
-    const json = await response.json();
+// const getMarvelMovies = async () => {
+//   try {
+//     const response = await fetch(url, options);
+//     const json = await response.json();
 
+//     console.log(json.results);
+//     return json.results;
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
+
+// get spiderman movies
+const getSpiderManMovies = async () => {
+  try {
+    const response = await fetch(`${API_URL}/discover/movie?include_adult=true&include_video=false&language=en-US&page=1&sort_by=primary_release_date.desc&with_cast=1136406%7C2219%7C37625&with_companies=420%7C7505%7C19551&with_original_language=en`, options);
+    const json = await response.json();
     console.log(json.results);
     return json.results;
   } catch (error) {
@@ -53,21 +65,28 @@ const getMovies = async () => {
   }
 };
 
+getSpiderManMovies();
 
-getCast = async () => {
-  try {
-    const movies = await getMovies();
-    movies.forEach(async (movie) => {
-      const response = await fetch(`https://api.themoviedb.org/3/movie/${movie.id}/credits?language=en-US` , options);
-      const json = await response.json();
-      // only log name of "known_for_department": "Acting"
-      const cast = json.cast.filter((person) => person.known_for_department === "Acting");
-      console.log(cast);
+// const getCast = async () => {
+//   try {
+//     const movies = await getSpiderManMovies();
+//     movies.forEach(async (movie) => {
+//       const response = await fetch(`${API_URL}/movie/${movie.id}/credits?language=en-US` , options);
+//       const json = await response.json();
+//       // only log "known_for_department": "Acting"
+//       const cast = json.cast.filter((actor) => actor.known_for_department === "Acting");
+//     });
+//   } catch (error) {
+//     console.error(error);
+//   }
+// }
 
-    });
-  } catch (error) {
-    console.error(error);
-  }
-}
+// getCast();
 
-getCast();
+// id tom: 1136406
+// id tobey: 2219
+// id andrew: 37625
+
+//marvel entertainment: 7505
+//marvel studios: 420
+//marvel enterprises: 19551
