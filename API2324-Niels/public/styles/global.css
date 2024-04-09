@@ -1,5 +1,6 @@
 @import 'navbar.css';
 @import 'sections.css';
+@import 'index.css';
 
 :root{
     --background-color: #202020;
@@ -34,7 +35,7 @@ ul{
 
 main{
     display: flex;
-    flex-direction: column;
+    height: 100vh;
 }
 
 footer{

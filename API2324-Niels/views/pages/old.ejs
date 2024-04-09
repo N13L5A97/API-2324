@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('../partials/head'); %>
+  </head>
+  <body>
+    <header><%- include('../partials/header'); %></header>
+    <main>
+        <% movies.forEach(function(movie) { %>
+          <section>
+            <h2> <%= movie.title %> </h2>
+            <img class="poster" src="https://image.tmdb.org/t/p/original/<%= movie.poster_path %>" alt="">
+            <!-- background image -->
+            <!-- <div style="background-image: url('https://image.tmdb.org/t/p/original/<%= movie.poster_path %>')"></div> -->
+          </section>
+        <% }); %>
+    </main>
+    <footer><%- include('../partials/footer'); %></footer>
+  </body>
+</html>

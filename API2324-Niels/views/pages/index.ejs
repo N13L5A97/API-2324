@@ -5,16 +5,16 @@
   </head>
   <body>
     <header><%- include('../partials/header'); %></header>
-    <main>
-        <% movies.forEach(function(movie) { %>
-          <section>
-            <h2> <%= movie.title %> </h2>
-            <img class="poster" src="https://image.tmdb.org/t/p/original/<%= movie.poster_path %>" alt="">
-            <!-- background image -->
-            <!-- <div style="background-image: url('https://image.tmdb.org/t/p/original/<%= movie.poster_path %>')"></div> -->
-          </section>
-        <% }); %>
+    <main class="index">
+      <a href="/tom-holland">
+        <img src="/images/tom.png" alt="Tom Holland as Spider-Man pointing to the other Spider-Man's Tobey Maguire and Andrew Garfield">
+      </a>
+      <a href="/andrew-garfield">
+        <img src="/images/andrew.png" alt="Andrew Garfield as Spider-Man pointing to the other Spider-Man's Tobey Maguire and Tom Holland">
+      </a>
+      <a href="/tobey-maguire">
+        <img src="/images/tobey.png" alt="Tobey Maguire as Spider-Man pointing to the other Spider-Man's Tom Holland and Andrew Garfield">
+      </a>
     </main>
-    <footer><%- include('../partials/footer'); %></footer>
   </body>
 </html>

@@ -1,0 +1,13 @@
+.index{
+    background-image: url(../images/alley1.jpg);
+    background-size: cover;
+    background-position: bottom center;
+
+    justify-content: center;
+    align-items: flex-end;
+
+    img{
+        max-width: 25vw;
+        max-height: 80vh;
+    }
+}
