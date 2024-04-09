@@ -1,11 +1,12 @@
 .web {
 
   &#tom {
-    --tom-primary: #ca0014;
-    --tom-secondary: #2f2f2f;
-    --tom-accent: #0d0d0d;
+    --tom-red: #ca0014;
+    --tom-dark: #0B0B0B;
+    --tom-light: #2f2f2f;
+    --tom-accent: #BBBBBB;
 
-    background-color: var(--tom-primary);
+    background: linear-gradient(to right top, var(--tom-dark) 25%, var(--tom-light) 100%);
 
     & svg {
         fill: var(--tom-accent);
@@ -13,11 +14,13 @@
   }
 
   &#andrew {
-    --andrew-primary: #c91f2d;
-    --andrew-secondary: #267bc2;
-    --andrew-accent: #131011;
+    --andrew-red: #c91f2d;
+    --andrew-dark: #051134;
+    --andrew-light: #267bc2;
+    --andrew-accent: #C2C6CD;
 
-    background-color: var(--andrew-primary);
+    background: linear-gradient(to right top, var(--andrew-dark) 25%, var(--andrew-light) 100%);
+
 
     & svg {
         fill: var(--andrew-accent);
@@ -25,11 +28,13 @@
   }
 
   &#tobey {
-    --tobey-secondary: #566988;
-    --tobey-primary: #e14841;
-    --tobey-accent: #decac5;
+    --tobey-dark: #040809;
+    --tobey-light: #566988;
+    --tobey-red: #D73D3E;
+    --tobey-accent: #AAA8A6;
 
-    background-color: var(--tobey-primary);
+    background: linear-gradient(to right top, var(--tobey-dark) 25%, var(--tobey-light) 100%);
+
 
     & svg {
         fill: var(--tobey-accent);
@@ -67,6 +72,7 @@
     left: 0;
     right: 0;
     z-index: -1;
+    mix-blend-mode: color-dodge;
 
     & svg {
         height: 100%;
