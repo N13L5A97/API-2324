@@ -10,6 +10,11 @@ const API_TOKEN = process.env.API_TOKEN;
 const oldurl = `${API_URL}/discover/movie?include_adult=true&include_video=true&language=en-US&sort_by=popularity.desc&with_companies=420`;
 const url = `${API_URL}/discover/movie?include_adult=true&include_video=false&language=en-US&page=1&sort_by=primary_release_date.desc&with_cast=1136406%7C2219%7C37625&with_companies=420%7C7505%7C19551&with_original_language=en`;
 
+
+const tomUrl = `${API_URL}/discover/movie?include_adult=true&include_video=false&language=en-US&page=1&sort_by=primary_release_date.desc&with_cast=1136406&with_companies=420%7C7505%7C19551&with_original_language=en`;
+const tobeyUrl = `${API_URL}/discover/movie?include_adult=true&include_video=false&language=en-US&page=1&sort_by=primary_release_date.desc&with_cast=2219&with_companies=420%7C7505%7C19551&with_original_language=en`;
+const andrewUrl = `${API_URL}/discover/movie?include_adult=true&include_video=false&language=en-US&page=1&sort_by=primary_release_date.desc&with_cast=37625&with_companies=420%7C7505%7C19551&with_original_language=en`;
+
 const options = {
   method: 'GET',
   headers: {
@@ -38,7 +43,10 @@ app.get("/", async (req, res) => {
 
 app.get("/tom-holland", async (req, res) => {
   try{
-    res.render('pages/tom-holland');
+    movies = await getTomMovies();
+    res.render('pages/tom-holland' , {
+      movies: movies
+    });
   } catch (error) {
     console.error(error);
     res.status(500).send("Internal Server Error");
@@ -47,7 +55,10 @@ app.get("/tom-holland", async (req, res) => {
 
 app.get("/andrew-garfield", async (req, res) => {
   try{
-    res.render('pages/andrew-garfield');
+    movies = await getAndrewMovies();
+    res.render('pages/andrew-garfield' , {
+      movies: movies
+    });
   } catch (error) {
     console.error(error);
     res.status(500).send("Internal Server Error");
@@ -56,7 +67,10 @@ app.get("/andrew-garfield", async (req, res) => {
 
 app.get("/tobey-maguire", async (req, res) => {
   try{
-    res.render('pages/tobey-maguire');
+    movies = await getTobeyMovies();
+    res.render('pages/tobey-maguire' , {
+      movies: movies
+    });
   } catch (error) {
     console.error(error);
     res.status(500).send("Internal Server Error");
@@ -91,7 +105,41 @@ const getSpiderManMovies = async () => {
   }
 };
 
-getSpiderManMovies();
+// get tom holland movies
+const getTomMovies = async () => {
+  try {
+    const response = await fetch(tomUrl, options);
+    const json = await response.json();
+    console.log(json.results);
+    return json.results;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+// get andrew garfield movies
+const getAndrewMovies = async () => {
+  try {
+    const response = await fetch(andrewUrl, options);
+    const json = await response.json();
+    console.log(json.results);
+    return json.results;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+// get tobey maguire movies
+const getTobeyMovies = async () => {
+  try {
+    const response = await fetch(tobeyUrl, options);
+    const json = await response.json();
+    console.log(json.results);
+    return json.results;
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 // const getCast = async () => {
 //   try {
