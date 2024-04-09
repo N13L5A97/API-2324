@@ -7,7 +7,16 @@
     align-items: flex-end;
 
     img{
+        display: block;
         max-width: 25vw;
         max-height: 80vh;
+        transition: all 0.2s;
+
+        &:hover{
+            transform: scale(1.05);
+            filter: drop-shadow(.2rem .2rem 0px var(--text-color)) drop-shadow(-.2rem -.2rem 0px var(--text-color)) drop-shadow(.2rem -.2rem 0px var(--text-color)) drop-shadow(-.2rem .2rem 0px var(--text-color));
+        }
     }
+
+    
 }
