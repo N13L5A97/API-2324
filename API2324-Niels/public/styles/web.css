@@ -1,3 +1,75 @@
-.web{
-    
+.web {
+
+  &#tom {
+    --tom-primary: #ca0014;
+    --tom-secondary: #2f2f2f;
+    --tom-accent: #0d0d0d;
+
+    background-color: var(--tom-primary);
+
+    & svg {
+        fill: var(--tom-accent);
+      }
+  }
+
+  &#andrew {
+    --andrew-primary: #c91f2d;
+    --andrew-secondary: #267bc2;
+    --andrew-accent: #131011;
+
+    background-color: var(--andrew-primary);
+
+    & svg {
+        fill: var(--andrew-accent);
+      }
+  }
+
+  &#tobey {
+    --tobey-secondary: #566988;
+    --tobey-primary: #e14841;
+    --tobey-accent: #decac5;
+
+    background-color: var(--tobey-primary);
+
+    & svg {
+        fill: var(--tobey-accent);
+      }
+  }
+
+  main {
+    display: grid;
+    grid-template-columns: 40vw 60vw;
+    position: relative;
+  }
+
+  section {
+    padding: 2rem;
+    padding-bottom: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+
+    &:first-of-type {
+      justify-content: space-between;
+    }
+
+    &:last-of-type {
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  div {
+    position: absolute;
+    top: 0;
+    grid-area: 1 / 1;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: -1;
+
+    & svg {
+        height: 100%;
+      }
+  }
 }
