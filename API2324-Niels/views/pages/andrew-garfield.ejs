@@ -6,13 +6,15 @@
   <body class="web" id="andrew">
     <main>
       <section>
-        <h1>Tobey Maguire</h1>
+        <h1>Andrew Garfield</h1>
         <img src="/images/andrewSuit.png" alt="Andrew Garfield in Spider-Man suit" />
       </section>
       <section>
         <ul>
           <% movies.forEach(function(movie) { %>
-          <li><%= movie.title %></li>
+          <li>
+            <img src="https://image.tmdb.org/t/p/original/<%= movie.poster_path %>" alt="">
+          </li>
           <% }); %>
         </ul>
       </section>

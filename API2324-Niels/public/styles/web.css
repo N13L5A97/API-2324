@@ -59,8 +59,51 @@
     }
 
     &:last-of-type {
-      align-items: center;
-      justify-content: center;
+      position: relative;
+
+      & ul img{
+        max-width: clamp(2rem, 10vw, 10rem);
+        clip-path: circle();
+      }
+
+      li{
+        position: absolute;
+
+        &:nth-child(1) {
+          top: 5rem;
+          left: 5rem;
+        }
+
+        &:nth-child(2) {
+          top: 8rem;
+          right: 8rem;
+        }
+
+        &:nth-child(3) {
+          bottom: 22rem;
+          right: 25rem;
+        }
+
+        &:nth-child(4) {
+          bottom: 10rem;
+          left: 6rem;
+        }
+
+        &:nth-child(5) {
+          bottom: 15rem;
+          left: 18rem;
+        }
+
+        &:nth-child(6) {
+          top: 8rem;
+          left: 14rem;
+        }
+
+        &:nth-child(7) {
+          top: 20rem;
+          right: 10rem;
+        }
+      }
     }
   }
 

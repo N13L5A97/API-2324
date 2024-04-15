@@ -10,10 +10,11 @@
         <img src="/images/tobeySuit.png" alt="Tobey Maguire in Spider-Man suit" />
       </section>
       <section>
-        <h2>Movies</h2>
         <ul>
           <% movies.forEach(function(movie) { %>
-          <li><%= movie.title %></li>
+          <li>
+            <img src="https://image.tmdb.org/t/p/original/<%= movie.poster_path %>" alt="">
+          </li>
           <% }); %>
         </ul>
       </section>
