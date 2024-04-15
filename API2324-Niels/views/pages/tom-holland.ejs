@@ -13,7 +13,9 @@
         <ul>
           <% movies.forEach(function(movie) { %>
           <li>
-            <img src="https://image.tmdb.org/t/p/original/<%= movie.poster_path %>" alt="">
+            <a href="tom-holland/<%= movie.title %>">
+              <img src="https://image.tmdb.org/t/p/original/<%= movie.poster_path %>" alt="">
+            </a>
           </li>
           <% }); %>
         </ul>

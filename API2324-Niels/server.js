@@ -7,20 +7,19 @@ const PORT = process.env.PORT;
 const API_URL = process.env.API_URL;
 const API_TOKEN = process.env.API_TOKEN;
 
-const oldurl = `${API_URL}/discover/movie?include_adult=true&include_video=true&language=en-US&sort_by=popularity.desc&with_companies=420`;
-const url = `${API_URL}/discover/movie?include_adult=true&include_video=false&language=en-US&page=1&sort_by=primary_release_date.desc&with_cast=1136406%7C2219%7C37625&with_companies=420%7C7505%7C19551&with_original_language=en`;
-
+// const oldurl = `${API_URL}/discover/movie?include_adult=true&include_video=true&language=en-US&sort_by=popularity.desc&with_companies=420`;
+// const url = `${API_URL}/discover/movie?include_adult=true&include_video=false&language=en-US&page=1&sort_by=primary_release_date.desc&with_cast=1136406%7C2219%7C37625&with_companies=420%7C7505%7C19551&with_original_language=en`;
 
 const tomUrl = `${API_URL}/discover/movie?include_adult=true&include_video=false&language=en-US&page=1&sort_by=primary_release_date.desc&with_cast=1136406&with_companies=420%7C7505%7C19551&with_original_language=en`;
 const tobeyUrl = `${API_URL}/discover/movie?include_adult=true&include_video=false&language=en-US&page=1&sort_by=primary_release_date.desc&with_cast=2219&with_companies=420%7C7505%7C19551&with_original_language=en`;
 const andrewUrl = `${API_URL}/discover/movie?include_adult=true&include_video=false&language=en-US&page=1&sort_by=primary_release_date.desc&with_cast=37625&with_companies=420%7C7505%7C19551&with_original_language=en`;
 
 const options = {
-  method: 'GET',
+  method: "GET",
   headers: {
-    accept: 'application/json',
-    Authorization: `Bearer ${API_TOKEN}`
-  }
+    accept: "application/json",
+    Authorization: `Bearer ${API_TOKEN}`,
+  },
 };
 
 app.set("view engine", "ejs");
@@ -28,13 +27,13 @@ app.use(express.static("public"));
 app.use(router);
 app.listen(PORT, function (err) {
   if (err) console.log(err);
-    console.log("Server listening on PORT", PORT); 
-  });
+  console.log("Server listening on PORT", PORT);
+});
 
 // index
 app.get("/", async (req, res) => {
-  try{
-    res.render('pages/index');
+  try {
+    res.render("pages/index");
   } catch (error) {
     console.error(error);
     res.status(500).send("Internal Server Error");
@@ -42,10 +41,31 @@ app.get("/", async (req, res) => {
 });
 
 app.get("/tom-holland", async (req, res) => {
-  try{
+  try {
     movies = await getTomMovies();
-    res.render('pages/tom-holland' , {
-      movies: movies
+    res.render("pages/tom-holland", {
+      movies: movies,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+// tom holland movies details page
+app.get("/tom-holland/:id", async (req, res) => {
+  try {
+    // get id from the movie
+    const movieId = req.params.id;
+    const response = await fetch(
+      `${API_URL}/movie/${movieId}?language=en-US`,
+      options
+    );
+
+    const movie = await response.json();
+    // res.send(movie);
+    res.render("pages/details", {
+      movie: movie,
     });
   } catch (error) {
     console.error(error);
@@ -54,10 +74,10 @@ app.get("/tom-holland", async (req, res) => {
 });
 
 app.get("/andrew-garfield", async (req, res) => {
-  try{
+  try {
     movies = await getAndrewMovies();
-    res.render('pages/andrew-garfield' , {
-      movies: movies
+    res.render("pages/andrew-garfield", {
+      movies: movies,
     });
   } catch (error) {
     console.error(error);
@@ -66,44 +86,16 @@ app.get("/andrew-garfield", async (req, res) => {
 });
 
 app.get("/tobey-maguire", async (req, res) => {
-  try{
-    movies = await getTobeyMovies();
-    res.render('pages/tobey-maguire' , {
-      movies: movies
-    });
-  } catch (error) {
-    console.error(error);
-    res.status(500).send("Internal Server Error");
-  }
-});
-
-// old index
-app.get("/old", async (req, res) => {
-  try{
-    const movies = await getSpiderManMovies();
-    console.log(movies);
-
-    res.render('pages/index', {
-      movies: movies
-    });
-
-  } catch (error) {
-    console.error(error);
-    res.status(500).send("Internal Server Error");
-  }
-});
-
-// get spiderman movies
-const getSpiderManMovies = async () => {
   try {
-    const response = await fetch(url, options);
-    const json = await response.json();
-    console.log(json.results);
-    return json.results;
+    movies = await getTobeyMovies();
+    res.render("pages/tobey-maguire", {
+      movies: movies,
+    });
   } catch (error) {
     console.error(error);
+    res.status(500).send("Internal Server Error");
   }
-};
+});
 
 // get tom holland movies
 const getTomMovies = async () => {
@@ -141,6 +133,18 @@ const getTobeyMovies = async () => {
   }
 };
 
+// // get spiderman movies
+// const getSpiderManMovies = async () => {
+//   try {
+//     const response = await fetch(url, options);
+//     const json = await response.json();
+//     console.log(json.results);
+//     return json.results;
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
+
 // const getCast = async () => {
 //   try {
 //     const movies = await getSpiderManMovies();
@@ -176,3 +180,19 @@ const getTobeyMovies = async () => {
 //     console.error(error);
 //   }
 // };
+
+// old index
+// app.get("/old", async (req, res) => {
+//   try{
+//     const movies = await getSpiderManMovies();
+//     console.log(movies);
+
+//     res.render('pages/index', {
+//       movies: movies
+//     });
+
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).send("Internal Server Error");
+//   }
+// });
