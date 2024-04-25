@@ -1,0 +1,38 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('../partials/head'); %>
+  </head>
+  <body class="web" id="<%=activeSpiderman.firstName%>">
+    <main>
+      <section>
+        <h1><%=activeSpiderman.name%></h1>
+        <img src="<%=activeSpiderman.img%>" alt="<%=activeSpiderman.name%> in Spider-Man suit" />
+      </section>
+      <section>
+        <div class="movie-container">
+          <ul>
+            <% movies.forEach(function(movie) { %>
+              <!-- if release date exists -->
+              <% if (movie.release_date) { %>
+                <li class="movie">
+                  <a href="<%=activeSpiderman.slug%>/<%=movie.id%>">
+                    <img
+                      src="https://image.tmdb.org/t/p/original/<%=movie.poster_path%>"
+                      alt="<%= movie.title %>"
+                    />
+                  </a>
+                </li>
+              <% } %>
+            <% }); %>
+          </ul>
+        </div>
+      </section>
+      <div id="background-web">
+       <%- include(`../partials/web-${activeSpiderman.firstName}`); %>
+      </div>
+    </main>
+    <%- include('../partials/scripts'); %>
+  </body>
+</html>

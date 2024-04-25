@@ -10,7 +10,7 @@ const API_TOKEN = process.env.API_TOKEN;
 // const oldurl = `${API_URL}/discover/movie?include_adult=true&include_video=true&language=en-US&sort_by=popularity.desc&with_companies=420`;
 // const url = `${API_URL}/discover/movie?include_adult=true&include_video=false&language=en-US&page=1&sort_by=primary_release_date.desc&with_cast=1136406%7C2219%7C37625&with_companies=420%7C7505%7C19551&with_original_language=en`;
 
-const tomUrl = `${API_URL}/discover/movie?include_adult=true&include_video=false&language=en-US&page=1&sort_by=primary_release_date.desc&with_cast=1136406&with_companies=420%7C7505%7C19551&with_original_language=en`;
+const url = `${API_URL}/discover/movie?include_adult=true&include_video=false&language=en-US&page=1&sort_by=primary_release_date.desc&with_companies=420%7C7505%7C19551&with_original_language=en&with_cast=`;
 const tobeyUrl = `${API_URL}/discover/movie?include_adult=true&include_video=false&language=en-US&page=1&sort_by=primary_release_date.desc&with_cast=2219&with_companies=420%7C7505%7C19551&with_original_language=en`;
 const andrewUrl = `${API_URL}/discover/movie?include_adult=true&include_video=false&language=en-US&page=1&sort_by=primary_release_date.desc&with_cast=37625&with_companies=420%7C7505%7C19551&with_original_language=en`;
 
@@ -40,10 +40,39 @@ app.get("/", async (req, res) => {
   }
 });
 
-app.get("/tom-holland", async (req, res) => {
+const spiderArray = [
+  {
+    id: 1136406,
+    slug: "tom-holland",
+    name: 'Tom Holland',
+    firstName: 'tom',
+    img: "/images/tomSuit.png",
+  },
+  {
+    id: 2219,
+    slug: "tobey-maguire",
+    name: 'Tobey Maguire',
+    firstName: 'tobey',
+    img: "/images/tobeySuit.png",
+  },
+  {
+    id: 37625,
+    slug: "andrew-garfield",
+    name: 'Andrew Garfield',
+    firstName: 'andrew',
+    img: "/images/andrewSuit.png",
+  }
+]
+
+
+app.get("/spiderman/:name", async (req, res) => {
+  const name = req.params.name;
   try {
-    movies = await getTomMovies();
-    res.render("pages/tom-holland", {
+    const activeSpiderman = spiderArray.filter((spider) => spider.slug === name)[0];
+    console.log(activeSpiderman)
+    movies = await getMovies(activeSpiderman.id);
+    res.render("pages/spider-detail", {
+      activeSpiderman,
       movies: movies,
     });
   } catch (error) {
@@ -53,10 +82,11 @@ app.get("/tom-holland", async (req, res) => {
 });
 
 // tom holland movies details page
-app.get("/tom-holland/:id", async (req, res) => {
+app.get("/spiderman/:name/:id", async (req, res) => {
   try {
     // get id from the movie
     const movieId = req.params.id;
+    console.log(movieId);
     const response = await fetch(
       `${API_URL}/movie/${movieId}?language=en-US`,
       options
@@ -73,34 +103,11 @@ app.get("/tom-holland/:id", async (req, res) => {
   }
 });
 
-app.get("/andrew-garfield", async (req, res) => {
-  try {
-    movies = await getAndrewMovies();
-    res.render("pages/andrew-garfield", {
-      movies: movies,
-    });
-  } catch (error) {
-    console.error(error);
-    res.status(500).send("Internal Server Error");
-  }
-});
-
-app.get("/tobey-maguire", async (req, res) => {
-  try {
-    movies = await getTobeyMovies();
-    res.render("pages/tobey-maguire", {
-      movies: movies,
-    });
-  } catch (error) {
-    console.error(error);
-    res.status(500).send("Internal Server Error");
-  }
-});
 
 // get tom holland movies
-const getTomMovies = async () => {
+const getMovies = async (id) => {
   try {
-    const response = await fetch(tomUrl, options);
+    const response = await fetch(url+id, options);
     const json = await response.json();
     console.log(json.results);
     return json.results;
@@ -109,29 +116,53 @@ const getTomMovies = async () => {
   }
 };
 
-// get andrew garfield movies
-const getAndrewMovies = async () => {
-  try {
-    const response = await fetch(andrewUrl, options);
-    const json = await response.json();
-    console.log(json.results);
-    return json.results;
-  } catch (error) {
-    console.error(error);
-  }
-};
+// app.get("/andrew-garfield", async (req, res) => {
+//   try {
+//     movies = await getAndrewMovies();
+//     res.render("pages/andrew-garfield", {
+//       movies: movies,
+//     });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).send("Internal Server Error");
+//   }
+// });
 
-// get tobey maguire movies
-const getTobeyMovies = async () => {
-  try {
-    const response = await fetch(tobeyUrl, options);
-    const json = await response.json();
-    console.log(json.results);
-    return json.results;
-  } catch (error) {
-    console.error(error);
-  }
-};
+// app.get("/tobey-maguire", async (req, res) => {
+//   try {
+//     movies = await getTobeyMovies();
+//     res.render("pages/tobey-maguire", {
+//       movies: movies,
+//     });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).send("Internal Server Error");
+//   }
+// });
+
+// // get andrew garfield movies
+// const getAndrewMovies = async () => {
+//   try {
+//     const response = await fetch(andrewUrl, options);
+//     const json = await response.json();
+//     console.log(json.results);
+//     return json.results;
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
+
+// // get tobey maguire movies
+// const getTobeyMovies = async () => {
+//   try {
+//     const response = await fetch(tobeyUrl, options);
+//     const json = await response.json();
+//     console.log(json.results);
+//     return json.results;
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
 
 // // get spiderman movies
 // const getSpiderManMovies = async () => {
