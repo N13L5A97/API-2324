@@ -646,5 +646,9 @@ I am really happy with the results. I learn a lot about API's like better and cl
 <img src="./docs/images/movie-detail.png" alt="Movie detail page of Infiniti War">
 
 ## Resources
+
 - [Cyd Stumpel](https://cydstumpel.nl/)
-- 
+- [EJS](https://ejs.co/#install)
+- [Express](https://expressjs.com/)
+- [TMDB](https://developer.themoviedb.org/reference/intro/getting-started)
+- [GSAP](https://gsap.com/docs/v3/)
