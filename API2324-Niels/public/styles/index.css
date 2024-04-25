@@ -17,6 +17,4 @@
             filter: drop-shadow(.2rem .2rem 0px var(--text-color)) drop-shadow(-.2rem -.2rem 0px var(--text-color)) drop-shadow(.2rem -.2rem 0px var(--text-color)) drop-shadow(-.2rem .2rem 0px var(--text-color));
         }
     }
-
-    
 }

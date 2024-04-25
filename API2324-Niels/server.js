@@ -77,7 +77,7 @@ app.get("/spiderman/:name", async (req, res) => {
   }
 });
 
-// tom holland movies details page
+// movie details page
 app.get("/spiderman/:name/:id", async (req, res) => {
   try {
     // get id from the movie
@@ -118,19 +118,19 @@ const getMovies = async (id) => {
 };
 
 
-const getCast = async (id) => {
-  try {
-      const response = await fetch('https://api.themoviedb.org/3/movie/102382/credits?language=en-US' , options);
-      const json = await response.json();
-      const cast = json.cast.filter((actor) => actor.known_for_department === "Acting");
-      console.log(cast);
-      // return cast;
-    } catch (error) {
-    console.error(error);
-  }
-};
+// const getCast = async (id) => {
+//   try {
+//       const response = await fetch('https://api.themoviedb.org/3/movie/102382/credits?language=en-US' , options);
+//       const json = await response.json();
+//       const cast = json.cast.filter((actor) => actor.known_for_department === "Acting");
+//       console.log(cast);
+//       // return cast;
+//     } catch (error) {
+//     console.error(error);
+//   }
+// };
 
-getCast();
+// getCast();
 
 // id tom: 1136406
 // id tobey: 2219
@@ -139,38 +139,3 @@ getCast();
 //marvel entertainment: 7505
 //marvel studios: 420
 //marvel enterprises: 19551
-
-
-
-const getRijksdata = async () => {
-  try {
-    const response = await fetch("https://www.rijksmuseum.nl/api/nl/collection?key=3o5p5X9n&format=json", options);
-    const json = await response.json();
-    console.log(json);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-//get all artworks images and put in array
-
-const artworks = [];
-
-const getArtworks = async () => {
-  try {
-    const response = await fetch("https://www.rijksmuseum.nl/api/nl/collection?key=3o5p5X9n&format=json", options);
-    const json = await response.json();
-    const artObjects = json.artObjects;
-
-    artObjects.forEach((artObject) => {
-      const img = artObject.webImage.url;
-      artworks.push(img);
-    });
-    
-    // generatew random number between 0 and artworks.length
-    const randomIndex = Math.floor(Math.random() * artworks.length);
-    const randomArtwork = artworks[randomIndex];
-
-} catch {
-
-}};
