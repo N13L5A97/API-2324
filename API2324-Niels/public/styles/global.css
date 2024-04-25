@@ -1,5 +1,6 @@
 @import 'index.css';
-@import 'web.css';
+@import 'spider-details.css';
+@import 'movie-details.css';
 
 :root{
     --background-color: #202020;
@@ -35,6 +36,13 @@ ul{
 main{
     display: flex;
     height: 100vh;
+}
+
+h2{
+    margin-bottom: .5rem;
+}
+h3{
+    font-size: 1rem;
 }
 
 footer{

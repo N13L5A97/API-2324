@@ -7,12 +7,8 @@ const PORT = process.env.PORT;
 const API_URL = process.env.API_URL;
 const API_TOKEN = process.env.API_TOKEN;
 
-// const oldurl = `${API_URL}/discover/movie?include_adult=true&include_video=true&language=en-US&sort_by=popularity.desc&with_companies=420`;
-// const url = `${API_URL}/discover/movie?include_adult=true&include_video=false&language=en-US&page=1&sort_by=primary_release_date.desc&with_cast=1136406%7C2219%7C37625&with_companies=420%7C7505%7C19551&with_original_language=en`;
-
 const url = `${API_URL}/discover/movie?include_adult=true&include_video=false&language=en-US&page=1&sort_by=primary_release_date.desc&with_companies=420%7C7505%7C19551&with_original_language=en&with_cast=`;
-const tobeyUrl = `${API_URL}/discover/movie?include_adult=true&include_video=false&language=en-US&page=1&sort_by=primary_release_date.desc&with_cast=2219&with_companies=420%7C7505%7C19551&with_original_language=en`;
-const andrewUrl = `${API_URL}/discover/movie?include_adult=true&include_video=false&language=en-US&page=1&sort_by=primary_release_date.desc&with_cast=37625&with_companies=420%7C7505%7C19551&with_original_language=en`;
+
 
 const options = {
   method: "GET",
@@ -86,16 +82,21 @@ app.get("/spiderman/:name/:id", async (req, res) => {
   try {
     // get id from the movie
     const movieId = req.params.id;
-    console.log(movieId);
     const response = await fetch(
       `${API_URL}/movie/${movieId}?language=en-US`,
       options
     );
-
     const movie = await response.json();
-    // res.send(movie);
+    console.log(movie);
+    
+    const castResponse = await fetch(`${API_URL}/movie/${movieId}/credits?language=en-US` , options);
+    const json = await castResponse.json();
+    const cast = json.cast.filter((actor) => actor.known_for_department === "Acting");
+    console.log(cast);
+
     res.render("pages/movie-details", {
       movie: movie,
+      cast: cast,
     });
   } catch (error) {
     console.error(error);
@@ -104,7 +105,7 @@ app.get("/spiderman/:name/:id", async (req, res) => {
 });
 
 
-// get tom holland movies
+// get movies
 const getMovies = async (id) => {
   try {
     const response = await fetch(url+id, options);
@@ -116,81 +117,20 @@ const getMovies = async (id) => {
   }
 };
 
-// app.get("/andrew-garfield", async (req, res) => {
-//   try {
-//     movies = await getAndrewMovies();
-//     res.render("pages/andrew-garfield", {
-//       movies: movies,
-//     });
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).send("Internal Server Error");
-//   }
-// });
 
-// app.get("/tobey-maguire", async (req, res) => {
-//   try {
-//     movies = await getTobeyMovies();
-//     res.render("pages/tobey-maguire", {
-//       movies: movies,
-//     });
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).send("Internal Server Error");
-//   }
-// });
+const getCast = async (id) => {
+  try {
+      const response = await fetch('https://api.themoviedb.org/3/movie/102382/credits?language=en-US' , options);
+      const json = await response.json();
+      const cast = json.cast.filter((actor) => actor.known_for_department === "Acting");
+      console.log(cast);
+      // return cast;
+    } catch (error) {
+    console.error(error);
+  }
+};
 
-// // get andrew garfield movies
-// const getAndrewMovies = async () => {
-//   try {
-//     const response = await fetch(andrewUrl, options);
-//     const json = await response.json();
-//     console.log(json.results);
-//     return json.results;
-//   } catch (error) {
-//     console.error(error);
-//   }
-// };
-
-// // get tobey maguire movies
-// const getTobeyMovies = async () => {
-//   try {
-//     const response = await fetch(tobeyUrl, options);
-//     const json = await response.json();
-//     console.log(json.results);
-//     return json.results;
-//   } catch (error) {
-//     console.error(error);
-//   }
-// };
-
-// // get spiderman movies
-// const getSpiderManMovies = async () => {
-//   try {
-//     const response = await fetch(url, options);
-//     const json = await response.json();
-//     console.log(json.results);
-//     return json.results;
-//   } catch (error) {
-//     console.error(error);
-//   }
-// };
-
-// const getCast = async () => {
-//   try {
-//     const movies = await getSpiderManMovies();
-//     movies.forEach(async (movie) => {
-//       const response = await fetch(`${API_URL}/movie/${movie.id}/credits?language=en-US` , options);
-//       const json = await response.json();
-//       // only log "known_for_department": "Acting"
-//       const cast = json.cast.filter((actor) => actor.known_for_department === "Acting");
-//     });
-//   } catch (error) {
-//     console.error(error);
-//   }
-// }
-
-// getCast();
+getCast();
 
 // id tom: 1136406
 // id tobey: 2219
@@ -200,30 +140,37 @@ const getMovies = async (id) => {
 //marvel studios: 420
 //marvel enterprises: 19551
 
-// const getMarvelMovies = async () => {
-//   try {
-//     const response = await fetch(url, options);
-//     const json = await response.json();
 
-//     console.log(json.results);
-//     return json.results;
-//   } catch (error) {
-//     console.error(error);
-//   }
-// };
 
-// old index
-// app.get("/old", async (req, res) => {
-//   try{
-//     const movies = await getSpiderManMovies();
-//     console.log(movies);
+const getRijksdata = async () => {
+  try {
+    const response = await fetch("https://www.rijksmuseum.nl/api/nl/collection?key=3o5p5X9n&format=json", options);
+    const json = await response.json();
+    console.log(json);
+  } catch (error) {
+    console.error(error);
+  }
+}
 
-//     res.render('pages/index', {
-//       movies: movies
-//     });
+//get all artworks images and put in array
 
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).send("Internal Server Error");
-//   }
-// });
+const artworks = [];
+
+const getArtworks = async () => {
+  try {
+    const response = await fetch("https://www.rijksmuseum.nl/api/nl/collection?key=3o5p5X9n&format=json", options);
+    const json = await response.json();
+    const artObjects = json.artObjects;
+
+    artObjects.forEach((artObject) => {
+      const img = artObject.webImage.url;
+      artworks.push(img);
+    });
+    
+    // generatew random number between 0 and artworks.length
+    const randomIndex = Math.floor(Math.random() * artworks.length);
+    const randomArtwork = artworks[randomIndex];
+
+} catch {
+
+}};

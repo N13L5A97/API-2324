@@ -1,13 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <%- include('../partials/head'); %>
-      </head>
-<body>
+  <head>
+    <%- include('../partials/head'); %>
+  </head>
+  <body
+    class="movie-details"
+    style="--backdrop-image: url('https://image.tmdb.org/t/p/original<%= movie.backdrop_path %>');"
+  >
+    <header>
+      <div class="banner"></div>
+      <h1><%= movie.title %></h1>
+      <p><%= movie.tagline %></p>
+    </header>
     <main>
-        <h1>
-            <%= movie.title %>
-        </h1>
+        <article>
+            <h2>Overview</h2>
+            <p><%= movie.overview %></p>
+        </article>
+        <article class="cast">
+            <h2>Cast</h2>
+            <ul>
+                <% cast.forEach((actor) => { %>
+                    <% if (actor.profile_path) { %>
+                    <li>
+                        <img src="https://image.tmdb.org/t/p/original/<%=actor.profile_path%>" alt="<%= actor.name %>">
+                        <h3><%= actor.name %></h3>
+                    </li>
+                    <% } %>
+                <% }); %>
+            </ul>
+        </article>
     </main>
-</body>
+  </body>
 </html>
