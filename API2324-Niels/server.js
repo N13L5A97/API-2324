@@ -71,7 +71,7 @@ app.get("/spiderman/:name", async (req, res) => {
     const activeSpiderman = spiderArray.filter((spider) => spider.slug === name)[0];
     console.log(activeSpiderman)
     movies = await getMovies(activeSpiderman.id);
-    res.render("pages/spider-detail", {
+    res.render("pages/spider-details", {
       activeSpiderman,
       movies: movies,
     });
@@ -94,7 +94,7 @@ app.get("/spiderman/:name/:id", async (req, res) => {
 
     const movie = await response.json();
     // res.send(movie);
-    res.render("pages/details", {
+    res.render("pages/movie-details", {
       movie: movie,
     });
   } catch (error) {
